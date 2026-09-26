@@ -1,1 +1,237 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rootine · Liens du projet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sky: #E4ECDF;
+    --sky-ink: #2E4A36;
+    --leaf: #5E8C4A;
+    --leaf-light: #8DB36F;
+    --bark: #6B4A32;
+    --soil: #3A2A1F;
+    --soil-deep: #2B1F17;
+    --root: #C9A77C;
+    --cream: #F2E9DC;
+    --muted: #B79C80;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    background: var(--soil);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --sky: #1E2B22;
+      --sky-ink: #CFE0C6;
+      --leaf: #6FA058;
+      --leaf-light: #9CC47E;
+    }
+  }
+  :root[data-theme="dark"] {
+    --sky: #1E2B22;
+    --sky-ink: #CFE0C6;
+    --leaf: #6FA058;
+    --leaf-light: #9CC47E;
+  }
+  *, *::before, *::after { box-sizing: inherit; }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  body {
+    margin: 0;
+    min-height: 100%;
+    font-family: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+    background: var(--soil);
+    color: var(--cream);
+    -webkit-font-smoothing: antialiased;
+  }
 
+  /* ---------- Above ground ---------- */
+  .sky {
+    background: var(--sky);
+    color: var(--sky-ink);
+    padding: 3.5rem 1.5rem 0;
+    text-align: center;
+  }
+  .tree { display: block; width: 150px; max-width: 45vw; height: auto; margin: 0 auto; }
+  .trunk { stroke: var(--bark); }
+  .canopy circle { fill: var(--leaf); }
+  .canopy circle.light { fill: var(--leaf-light); }
+
+  h1 {
+    font-family: "Young Serif", Georgia, "Times New Roman", serif;
+    font-weight: 400;
+    font-size: clamp(2.75rem, 11vw, 4.25rem);
+    line-height: 1;
+    letter-spacing: -0.01em;
+    margin: 1.25rem 0 0.5rem;
+  }
+  .tagline {
+    margin: 0 auto;
+    max-width: 30ch;
+    font-size: 1.05rem;
+    line-height: 1.5;
+  }
+  .ground {
+    display: block;
+    width: 100%;
+    width: calc(100% + 3rem);
+    height: 28px;
+    margin: 2.25rem -1.5rem 0;
+  }
+  .ground path { fill: var(--soil); }
+
+  /* ---------- Below ground ---------- */
+  .soil {
+    padding: 0 1.5rem 3rem;
+    min-height: 60vh;
+    background:
+      radial-gradient(circle at 20% 30%, rgba(255,255,255,0.025) 0 2px, transparent 3px) 0 0 / 38px 38px,
+      radial-gradient(circle at 70% 60%, rgba(0,0,0,0.12) 0 2px, transparent 3px) 0 0 / 52px 52px,
+      var(--soil);
+  }
+  .links {
+    list-style: none;
+    margin: 0 auto;
+    padding: 0 0 0 2.25rem;
+    max-width: 30rem;
+    position: relative;
+  }
+  .links li { position: relative; margin: 0 0 1.1rem; }
+  /* root coming down from above and curving into each link */
+  .links li::before {
+    content: "";
+    position: absolute;
+    left: -1.65rem;
+    top: -1.1rem;
+    bottom: calc(50% - 1.5px);
+    width: calc(1.65rem + 2px);
+    border-left: 3px solid var(--root);
+    border-bottom: 3px solid var(--root);
+    border-bottom-left-radius: 1.4rem;
+  }
+  /* first root starts at the ground */
+  .links li:first-child::before { top: -0.6rem; }
+  /* straight root continuing down to the next link */
+  .links li:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    left: -1.65rem;
+    top: calc(50% - 1.4rem);
+    bottom: -1.1rem;
+    width: 3px;
+    background: var(--root);
+  }
+
+  .link {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.9rem;
+    align-items: center;
+    padding: 1rem 1.15rem;
+    border: 2px solid var(--root);
+    border-radius: 1rem 1rem 1rem 0.35rem;
+    color: var(--cream);
+    text-decoration: none;
+    background: rgba(201, 167, 124, 0.06);
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  a.link:hover { background: var(--root); color: var(--soil-deep); }
+  a.link:hover .desc { color: var(--soil); }
+  a.link:focus-visible { outline: 3px solid var(--leaf-light); outline-offset: 3px; }
+  .icon { width: 28px; height: 28px; flex: none; }
+  .title { display: block; font-weight: 600; font-size: 1.08rem; }
+  .desc { display: block; font-size: 0.92rem; color: var(--muted); margin-top: 0.15rem; line-height: 1.4; }
+  .link.pending { border-style: dashed; opacity: 0.7; cursor: default; }
+
+  footer {
+    max-width: 30rem;
+    margin: 2.5rem auto 0;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--muted);
+    text-align: center;
+  }
+  footer strong { color: var(--cream); font-weight: 500; }
+
+  /* ---------- The one moment: the tree grows on load ---------- */
+  @media (prefers-reduced-motion: no-preference) {
+    .trunk { stroke-dasharray: 120; stroke-dashoffset: 120; animation: grow 0.9s ease-out forwards; }
+    .canopy circle { transform-box: fill-box; transform-origin: center; transform: scale(0); animation: bud 0.5s cubic-bezier(.3,1.5,.6,1) forwards; }
+    .canopy circle:nth-child(1) { animation-delay: 0.75s; }
+    .canopy circle:nth-child(2) { animation-delay: 0.85s; }
+    .canopy circle:nth-child(3) { animation-delay: 0.95s; }
+    .canopy circle:nth-child(4) { animation-delay: 1.05s; }
+    .canopy circle:nth-child(5) { animation-delay: 1.15s; }
+  }
+  @keyframes grow { to { stroke-dashoffset: 0; } }
+  @keyframes bud { to { transform: scale(1); } }
+</style>
+</head>
+<body>
+
+<header class="sky">
+  <svg class="tree" viewBox="0 0 150 140" aria-hidden="true">
+    <path class="trunk" d="M75 138 L75 70 M75 96 L56 80 M75 86 L94 70" fill="none" stroke-width="7" stroke-linecap="round"/>
+    <g class="canopy">
+      <circle cx="75" cy="44" r="30"/>
+      <circle class="light" cx="48" cy="62" r="20"/>
+      <circle cx="102" cy="58" r="22"/>
+      <circle class="light" cx="92" cy="30" r="16"/>
+      <circle cx="58" cy="30" r="14"/>
+    </g>
+  </svg>
+  <h1>Rootine</h1>
+  <p class="tagline">Plantez un arbre, restez concentré, faites pousser une forêt. Un minuteur de concentration dans le terminal, par le groupe K6.</p>
+  <svg class="ground" viewBox="0 0 400 28" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 14 Q 50 4 100 12 T 200 12 T 300 10 T 400 14 L400 28 L0 28 Z"/>
+  </svg>
+</header>
+
+<main class="soil">
+  <ul class="links" id="links"></ul>
+</main>
+
+<script>
+  // Modifiez les champs url ci-dessous pour pointer vers vos pages.
+  const LINKS = [
+    {
+      title: "Documentation",
+      desc: "Référence de tous les modules du programme",
+      url: "https://k6-rootine.github.io/docs/",
+      icon: '<path d="M6 4h12a2 2 0 0 1 2 2v16l-4-2-4 2-4-2-4 2V6a2 2 0 0 1 2-2z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8 9h8M8 13h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>'
+    },
+    {
+      title: "Analyse descendante",
+      desc: "Conception descendante de la structure du programme",
+      url: "https://k6-rootine.github.io/analysedescendante/",
+      icon: '<circle cx="14" cy="5" r="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="6" cy="21" r="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="14" cy="21" r="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="22" cy="21" r="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M14 7.5v4M6 18.5V14h16v4.5M14 11.5v7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>'
+    },
+    {
+      title: "Dépôt GitHub",
+      desc: "Code source, versions et historique",
+      url: "https://github.com/k6-rootine/rootine",
+      icon: '<path d="M14 2.5a11.5 11.5 0 0 0-3.64 22.4c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.7 5.4-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 14 2.5z" fill="currentColor"/>'
+    }
+  ];
+
+  const list = document.getElementById("links");
+  LINKS.forEach(l => {
+    const li = document.createElement("li");
+    const hasUrl = l.url && l.url.trim() !== "";
+    const el = document.createElement(hasUrl ? "a" : "div");
+    el.className = "link" + (hasUrl ? "" : " pending");
+    if (hasUrl) { el.href = l.url; el.target = "_blank"; el.rel = "noopener"; }
+    el.innerHTML =
+      '<svg class="icon" viewBox="0 0 28 28" aria-hidden="true">' + l.icon + '</svg>' +
+      '<span><span class="title">' + l.title + '</span>' +
+      '<span class="desc">' + (hasUrl ? l.desc : "Lien pas encore ajouté") + '</span></span>';
+    li.appendChild(el);
+    list.appendChild(li);
+  });
+</script>
+</body>
+</html>
