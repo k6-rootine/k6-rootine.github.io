@@ -147,6 +147,10 @@
   .title { display: block; font-weight: 600; font-size: 1.08rem; }
   .desc { display: block; font-size: 0.92rem; color: var(--muted); margin-top: 0.15rem; line-height: 1.4; }
   .link.pending { border-style: dashed; opacity: 0.7; cursor: default; }
+  /* download button: filled, so it reads as an action rather than a page */
+  .link.action { background: var(--root); color: var(--soil-deep); }
+  .link.action .desc { color: var(--soil); }
+  a.link.action:hover { background: var(--cream); border-color: var(--cream); }
 
   footer {
     max-width: 30rem;
@@ -266,6 +270,14 @@
       icon: '<circle cx="14" cy="5" r="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="6" cy="21" r="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="14" cy="21" r="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="22" cy="21" r="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M14 7.5v4M6 18.5V14h16v4.5M14 11.5v7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>'
     },
     {
+      title: "Télécharger analyse.json",
+      desc: "À télécharger, puis à charger dans le site Analyse descendante",
+      url: "https://k6-rootine.github.io/analyse.json",
+      download: "analyse.json",
+      action: true,
+      icon: '<path d="M14 4v13M8.5 11.5 14 17l5.5-5.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 20v2.5h18V20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'
+    },
+    {
       title: "Dépôt GitHub",
       desc: "Code source, versions et historique",
       url: "https://github.com/k6-rootine/rootine",
@@ -278,8 +290,12 @@
     const li = document.createElement("li");
     const hasUrl = l.url && l.url.trim() !== "";
     const el = document.createElement(hasUrl ? "a" : "div");
-    el.className = "link" + (hasUrl ? "" : " pending");
-    if (hasUrl) { el.href = l.url; el.target = "_blank"; el.rel = "noopener"; }
+    el.className = "link" + (hasUrl ? "" : " pending") + (l.action ? " action" : "");
+    if (hasUrl) {
+      el.href = l.url;
+      if (l.download) { el.setAttribute("download", l.download); }
+      else { el.target = "_blank"; el.rel = "noopener"; }
+    }
     el.innerHTML =
       '<svg class="icon" viewBox="0 0 28 28" aria-hidden="true">' + l.icon + '</svg>' +
       '<span><span class="title">' + l.title + '</span>' +
