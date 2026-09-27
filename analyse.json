@@ -1,0 +1,1279 @@
+{
+  "nextId": 140,
+  "main": {
+    "name": "PPrinc",
+    "x": 117.41685351562501,
+    "y": -1534.3799389648439,
+    "calls": [
+      "f128",
+      "f129",
+      "f130",
+      "f131",
+      "f139",
+      "f96",
+      "f97",
+      "f100",
+      "f127"
+    ],
+    "functions": [
+      {
+        "id": "f128",
+        "name": "handleImport",
+        "inputs": "",
+        "outputs": "TUser\nBooléen",
+        "calls": [
+          "f98",
+          "f23",
+          "f25",
+          "f125"
+        ],
+        "x": -786.678638680683,
+        "y": -1371.664931794096,
+        "hidden": false,
+        "notes": "Gère l'écran de connexion : demande le nom d'utilisateur, vérifie qu'il existe puis charge le profil ; affiche une erreur et échoue sinon."
+      },
+      {
+        "id": "f129",
+        "name": "handleRegistration",
+        "inputs": "",
+        "outputs": "TUser\nBooléen",
+        "calls": [
+          "f99",
+          "f126",
+          "f23",
+          "f2",
+          "f39",
+          "f41",
+          "f43",
+          "f24",
+          "f125"
+        ],
+        "x": -413.47256467127903,
+        "y": -1371.2387397013365,
+        "hidden": false,
+        "notes": "Gère la création d'un nouveau profil : collecte les informations, demande confirmation, vérifie qu'aucun profil n'a déjà ce nom d'utilisateur, construit le TUser et le sauvegarde."
+      },
+      {
+        "id": "f130",
+        "name": "handleViewForest",
+        "inputs": "TUser",
+        "outputs": "",
+        "calls": [
+          "f49",
+          "f112",
+          "f80",
+          "f26",
+          "f28",
+          "f113",
+          "f127"
+        ],
+        "x": 476.24932143531765,
+        "y": -1363.3392731714134,
+        "hidden": false,
+        "notes": "Affiche la forêt de l'utilisateur en miniature, laisse choisir une espèce, puis charge et affiche cet arbre en entier."
+      },
+      {
+        "id": "f131",
+        "name": "handleLogout",
+        "inputs": "TUser",
+        "outputs": "",
+        "calls": [
+          "f24",
+          "f124"
+        ],
+        "x": 898.7184507778757,
+        "y": -1367.3838947893942,
+        "hidden": false,
+        "notes": "Sauvegarde le profil courant puis prévient l'utilisateur avant de retourner à l'écran de connexion, sans quitter le programme."
+      },
+      {
+        "id": "f132",
+        "name": "selectTree",
+        "inputs": "",
+        "outputs": "TTree",
+        "calls": [
+          "f81",
+          "f82",
+          "f28",
+          "f117",
+          "f118"
+        ],
+        "x": 85.1305,
+        "y": -669.5612038928567,
+        "hidden": false,
+        "notes": "Fait parcourir une à une les espèces disponibles (aperçu + navigation) et retourne l'arbre choisi pour la prochaine session de concentration."
+      },
+      {
+        "id": "f133",
+        "name": "selectMode",
+        "inputs": "",
+        "outputs": "TCycle",
+        "calls": [
+          "f114",
+          "f115",
+          "f126",
+          "f116",
+          "f51"
+        ],
+        "x": -652.3250074170473,
+        "y": -1097.8074224559712,
+        "hidden": false,
+        "notes": "Fait choisir le mode du cycle (Personnalisé ou Pomodoro), collecte ou confirme les durées associées, puis construit le TCycle correspondant."
+      },
+      {
+        "id": "f134",
+        "name": "startNewCycle",
+        "inputs": "TCycle",
+        "outputs": "TCycle\nTTimer",
+        "calls": [
+          "f61",
+          "f65",
+          "f67"
+        ],
+        "x": -297.4873072041239,
+        "y": -1110.0102757481682,
+        "hidden": false,
+        "notes": "Démarre officiellement le cycle choisi et initialise le minuteur sur la durée de la première phase (FOCUS)."
+      },
+      {
+        "id": "f135",
+        "name": "handleSessionAction",
+        "inputs": "TSessionAction\nTCycle\nTTimer\nTTree",
+        "outputs": "TCycle\nTTimer\nTTree\nBooléen",
+        "calls": [
+          "f132",
+          "f59",
+          "f71",
+          "f74",
+          "f75",
+          "f64",
+          "f63",
+          "f126"
+        ],
+        "x": -443.32988191664424,
+        "y": -911.8445974860285,
+        "hidden": false,
+        "notes": "Traduit l'action détectée pendant la session (pause, quitter, changer d'arbre) en la modification correspondante du cycle, du minuteur ou de l'arbre affiché."
+      },
+      {
+        "id": "f136",
+        "name": "handlePhaseEnd",
+        "inputs": "TCycle\nTTimer\nTTree\nTUser",
+        "outputs": "TCycle\nTTimer\nTUser",
+        "calls": [
+          "f72",
+          "f60",
+          "f59",
+          "f14",
+          "f50",
+          "f78",
+          "f45",
+          "f48",
+          "f47",
+          "f65",
+          "f62",
+          "f76"
+        ],
+        "x": 250.83318467571218,
+        "y": -924.8489704123455,
+        "hidden": false,
+        "notes": "Vérifie si la phase en cours est terminée ; si une phase FOCUS vient de se finir, crédite l'arbre et les statistiques de l'utilisateur, puis fait avancer le cycle et réinitialise le minuteur."
+      },
+      {
+        "id": "f137",
+        "name": "mainSessionLoop",
+        "inputs": "TTree\nTCycle\nTTimer\nTUser",
+        "outputs": "TTree\nTCycle\nTUser\nBooléen",
+        "calls": [
+          "f71",
+          "f73",
+          "f68",
+          "f69",
+          "f70",
+          "f19",
+          "f59",
+          "f119",
+          "f120",
+          "f121",
+          "f122",
+          "f135",
+          "f136",
+          "f60"
+        ],
+        "x": 279.4739259905961,
+        "y": -1123.0430810786538,
+        "hidden": false,
+        "notes": "Boucle principale d'une session : fait avancer le temps, dessine l'arbre/l'horloge/les instructions, lit les actions de l'utilisateur et gère la fin de chaque phase, jusqu'à ce que le cycle soit terminé."
+      },
+      {
+        "id": "f138",
+        "name": "handleSessionEnd",
+        "inputs": "TUser\nTCycle\nBooléen",
+        "outputs": "TUser",
+        "calls": [
+          "f123",
+          "f58",
+          "f46",
+          "f79",
+          "f24"
+        ],
+        "x": 768.6833130554129,
+        "y": -1110.7530810786538,
+        "hidden": false,
+        "notes": "Termine le cycle : affiche le bilan, crédite l'utilisateur d'un cycle complété si au moins une session a été menée à bien, puis sauvegarde son profil."
+      },
+      {
+        "id": "f139",
+        "name": "runSession",
+        "inputs": "TUser",
+        "outputs": "TUser",
+        "calls": [
+          "f132",
+          "f133",
+          "f134",
+          "f137",
+          "f138"
+        ],
+        "x": 46.104895117187496,
+        "y": -1360.1299951171875,
+        "hidden": false,
+        "notes": "Orchestre une session complète du début à la fin : choix de l'arbre, choix du mode, démarrage du cycle, boucle principale, puis bilan final."
+      }
+    ]
+  },
+  "units": [
+    {
+      "id": "u1",
+      "name": "UserData",
+      "role": "Stores user information and statistics.",
+      "color": {
+        "bg": "#D5F0EA",
+        "border": "#0E7C6B"
+      },
+      "x": -718.55,
+      "y": 372.45,
+      "tads": "TDate = structure\n  day, month, year: Naturel\nfinstructure\n\nTForest = structure\n  speciesName: Tableau[1..MAX_SPECIES] de Chaîne\n  nbTreesGrown: Tableau[1..MAX_SPECIES] de Naturel\n  nbSpecies: Naturel\nfinstructure\n\nTUser = structure\n  name, username, description: Chaîne \n  joinDate: TDate\n  nbSessionsDone, nbCyclesDone, totalFocusTime: Naturel\n  forest: TForest\nfinstructure",
+      "functions": [
+        {
+          "id": "f2",
+          "name": "initialiseUser",
+          "inputs": "",
+          "outputs": "TUser",
+          "calls": [
+            "f77",
+            "f35"
+          ],
+          "x": 60.2833566809081,
+          "y": 299.44949417022883,
+          "hidden": false,
+          "notes": "Construit un nouvel utilisateur vide, avec une date d'inscription et une forêt initialisées par défaut."
+        },
+        {
+          "id": "f32",
+          "name": "getDay",
+          "inputs": "TDate",
+          "outputs": "Naturel",
+          "calls": [],
+          "x": 516.2268748473944,
+          "y": 32.89939149986562,
+          "hidden": false,
+          "notes": "Retourne le jour stocké dans une date."
+        },
+        {
+          "id": "f33",
+          "name": "getMonth",
+          "inputs": "TDate",
+          "outputs": "Naturel",
+          "calls": [],
+          "x": 861.5499887407977,
+          "y": 36.17797341650989,
+          "hidden": false,
+          "notes": "Retourne le mois stocké dans une date."
+        },
+        {
+          "id": "f34",
+          "name": "getYear",
+          "inputs": "TDate",
+          "outputs": "Naturel",
+          "calls": [],
+          "x": 1227.5547236014916,
+          "y": 35.315613955836795,
+          "hidden": false,
+          "notes": "Retourne l'année stockée dans une date."
+        },
+        {
+          "id": "f35",
+          "name": "initialiseForest",
+          "inputs": "",
+          "outputs": "TForest",
+          "calls": [],
+          "x": 41.76844000000335,
+          "y": 159.4292245744331,
+          "hidden": false,
+          "notes": "Construit une forêt vide (aucune espèce cultivée pour l'instant)."
+        },
+        {
+          "id": "f36",
+          "name": "getNbTreesGrown",
+          "inputs": "TForest\nNaturel",
+          "outputs": "Naturel",
+          "calls": [],
+          "x": 372.8889766809061,
+          "y": 159.8547200000012,
+          "hidden": false,
+          "notes": "Retourne le nombre d'arbres cultivés pour l'espèce située à un indice donné de la forêt."
+        },
+        {
+          "id": "f37",
+          "name": "getNbSpecies",
+          "inputs": "TForest",
+          "outputs": "Naturel",
+          "calls": [],
+          "x": 803.2172683404494,
+          "y": 157.7039162339799,
+          "hidden": false,
+          "notes": "Retourne le nombre d'espèces différentes déjà présentes dans la forêt."
+        },
+        {
+          "id": "f38",
+          "name": "findSpecies",
+          "inputs": "TForest\nChaîne",
+          "outputs": "Naturel",
+          "calls": [],
+          "x": 1184.1535533618164,
+          "y": 160.70692000000008,
+          "hidden": false,
+          "notes": "Recherche une espèce par son nom dans la forêt et retourne son indice (0 si elle n'y est pas encore)."
+        },
+        {
+          "id": "f39",
+          "name": "setName",
+          "inputs": "TUser\nChaîne",
+          "outputs": "TUser",
+          "calls": [],
+          "x": 726.3249783404493,
+          "y": 306.90295085113735,
+          "hidden": false,
+          "notes": "Modifie le nom affiché de l'utilisateur."
+        },
+        {
+          "id": "f40",
+          "name": "getName",
+          "inputs": "TUser",
+          "outputs": "Chaîne",
+          "calls": [],
+          "x": 384.7297366809083,
+          "y": 304.133350851137,
+          "hidden": false,
+          "notes": "Retourne le nom affiché de l'utilisateur."
+        },
+        {
+          "id": "f41",
+          "name": "setUsername",
+          "inputs": "TUser\nChaîne",
+          "outputs": "TUser",
+          "calls": [],
+          "x": 1042.0880987617427,
+          "y": 304.99779393625147,
+          "hidden": false,
+          "notes": "Modifie le nom d'utilisateur (identifiant de connexion et de sauvegarde)."
+        },
+        {
+          "id": "f42",
+          "name": "getUsername",
+          "inputs": "TUser",
+          "outputs": "Chaîne",
+          "calls": [],
+          "x": 1403.486623857367,
+          "y": 305.55263517450265,
+          "hidden": false,
+          "notes": "Retourne le nom d'utilisateur."
+        },
+        {
+          "id": "f43",
+          "name": "setDescription",
+          "inputs": "TUser\nChaîne",
+          "outputs": "TUser",
+          "calls": [],
+          "x": 8.913756000000046,
+          "y": 442.16333958725244,
+          "hidden": false,
+          "notes": "Modifie la description du profil."
+        },
+        {
+          "id": "f44",
+          "name": "getDescription",
+          "inputs": "TUser",
+          "outputs": "Chaîne",
+          "calls": [],
+          "x": 395.8226946191229,
+          "y": 446.9699164127534,
+          "hidden": false,
+          "notes": "Retourne la description du profil."
+        },
+        {
+          "id": "f45",
+          "name": "setNbSessionsDone",
+          "inputs": "TUser\nNaturel",
+          "outputs": "TUser",
+          "calls": [],
+          "x": 777.4027714788506,
+          "y": 442.0965991622925,
+          "hidden": false,
+          "notes": "Modifie le nombre total de sessions de concentration terminées par l'utilisateur."
+        },
+        {
+          "id": "f46",
+          "name": "getNbCyclesDone",
+          "inputs": "TUser",
+          "outputs": "Naturel",
+          "calls": [],
+          "x": 1353.064631076908,
+          "y": 578.6267377399915,
+          "hidden": false,
+          "notes": "Retourne le nombre total de cycles menés à leur terme par l'utilisateur."
+        },
+        {
+          "id": "f47",
+          "name": "setTotalFocusTime",
+          "inputs": "TUser\nNaturel",
+          "outputs": "TUser",
+          "calls": [],
+          "x": 20.251735587249726,
+          "y": 580.4384595872535,
+          "hidden": false,
+          "notes": "Modifie le temps total de concentration cumulé de l'utilisateur."
+        },
+        {
+          "id": "f48",
+          "name": "getTotalFocusTime",
+          "inputs": "TUser",
+          "outputs": "Naturel",
+          "calls": [],
+          "x": 475.1886328254974,
+          "y": 576.7415652382549,
+          "hidden": false,
+          "notes": "Retourne le temps total de concentration cumulé de l'utilisateur."
+        },
+        {
+          "id": "f49",
+          "name": "getForest",
+          "inputs": "TUser",
+          "outputs": "TForest",
+          "calls": [],
+          "x": 462.8363285045676,
+          "y": 740.9871180833558,
+          "hidden": false,
+          "notes": "Retourne la forêt de l'utilisateur (les espèces cultivées et leur quantité)."
+        },
+        {
+          "id": "f50",
+          "name": "addTree",
+          "inputs": "TUser\nChaîne",
+          "outputs": "TUser",
+          "calls": [
+            "f38"
+          ],
+          "x": 81.90308191664427,
+          "y": 735.8341180833557,
+          "hidden": false,
+          "notes": "Ajoute un arbre nouvellement complété à la forêt : incrémente le compteur de l'espèce si elle existe déjà, sinon l'ajoute comme nouvelle entrée."
+        },
+        {
+          "id": "f77",
+          "name": "initialiseDate",
+          "inputs": "Naturel*3",
+          "outputs": "TDate",
+          "calls": [],
+          "x": 54.813925910061016,
+          "y": 32.84211975933667,
+          "hidden": false,
+          "notes": "Construit une date à partir d'un jour, d'un mois et d'une année."
+        },
+        {
+          "id": "f78",
+          "name": "getNbSessionsDone",
+          "inputs": "TUser",
+          "outputs": "Naturel",
+          "calls": [],
+          "x": 1222.2013571702048,
+          "y": 446.0142895385207,
+          "hidden": false,
+          "notes": "Retourne le nombre total de sessions de concentration terminées par l'utilisateur."
+        },
+        {
+          "id": "f79",
+          "name": "setNbCyclesDone",
+          "inputs": "TUser\nNaturel",
+          "outputs": "TUser",
+          "calls": [],
+          "x": 934.0882139155692,
+          "y": 576.3589742545004,
+          "hidden": false,
+          "notes": "Modifie le nombre total de cycles menés à leur terme par l'utilisateur."
+        },
+        {
+          "id": "f80",
+          "name": "getForestSpeciesName",
+          "inputs": "TForest\nNaturel",
+          "outputs": "Chaîne",
+          "calls": [],
+          "x": 877.3588008379904,
+          "y": 740.3018050279428,
+          "hidden": false,
+          "notes": "Retourne le nom de l'espèce située à un indice donné de la forêt."
+        },
+        {
+          "id": "f94",
+          "name": "getJoinDate",
+          "inputs": "TUser",
+          "outputs": "TDate",
+          "calls": [],
+          "x": 1385.0073633992486,
+          "y": 737.9459822752187,
+          "hidden": false,
+          "notes": "Retourne la date d'inscription de l'utilisateur."
+        }
+      ],
+      "w": 1869.5070852686063,
+      "h": 861.4497197593366
+    },
+    {
+      "id": "u6",
+      "name": "TreeData",
+      "role": "Stores a species' information and its growth phases.",
+      "color": {
+        "bg": "#FBE7C6",
+        "border": "#A66A06"
+      },
+      "x": 1478.29,
+      "y": 391.83,
+      "tads": "TColor = (black, blue, green, cyan, red, magenta, brown, lightGray, darkGray, lightBlue, lightGreen, lightCyan, lightRed, lightMagenta, yellow, white)\n\nTPhase = structure\n  elem: Tableau[1..MAX_VERTICAL][1..MAX_HORIZONTAL] de Caractère\n  color: Tableau[1..MAX_VERTICAL][1..MAX_HORIZONTAL] de TColor\nfinstructure\n\nTTree = structure\n  speciesName, description: Chaîne de caractère\n  phase: Tableau[1..MAX_PHASE] de TPhase\n  nbPhases: Naturel\nfinstructure",
+      "functions": [
+        {
+          "id": "f7",
+          "name": "initialisePhase",
+          "inputs": "",
+          "outputs": "TPhase",
+          "calls": [],
+          "x": 36.2294,
+          "y": 229.31224185942762,
+          "hidden": false,
+          "notes": "Construit une phase de croissance vide (grille de caractères et de couleurs par défaut)."
+        },
+        {
+          "id": "f8",
+          "name": "getElement",
+          "inputs": "TPhase\nNaturel*2",
+          "outputs": "Caractère",
+          "calls": [],
+          "x": 349.5864047677978,
+          "y": 32.42152930286101,
+          "hidden": false,
+          "notes": "Retourne le caractère affiché à une position donnée d'une phase."
+        },
+        {
+          "id": "f10",
+          "name": "getColor",
+          "inputs": "TPhase\nNaturel*2",
+          "outputs": "TColor",
+          "calls": [],
+          "x": 748.0459498919495,
+          "y": 29.24268170805056,
+          "hidden": false,
+          "notes": "Retourne la couleur affichée à une position donnée d'une phase."
+        },
+        {
+          "id": "f12",
+          "name": "initialiseTree",
+          "inputs": "",
+          "outputs": "TTree",
+          "calls": [],
+          "x": 34.10161624755864,
+          "y": 31.652844680786444,
+          "hidden": false,
+          "notes": "Construit un nouvel arbre vide (utilisé par le programme séparé de création d'espèces, pas par PPrinc)."
+        },
+        {
+          "id": "f14",
+          "name": "getSpeciesName",
+          "inputs": "TTree",
+          "outputs": "Chaîne",
+          "calls": [],
+          "x": 371.80784488114443,
+          "y": 227.85517644228867,
+          "hidden": false,
+          "notes": "Retourne le nom de l'espèce d'un arbre."
+        },
+        {
+          "id": "f16",
+          "name": "getDescription",
+          "inputs": "TTree",
+          "outputs": "Chaîne",
+          "calls": [],
+          "x": 775.99964476,
+          "y": 222.27088661942767,
+          "hidden": false,
+          "notes": "Retourne la description d'un arbre."
+        },
+        {
+          "id": "f17",
+          "name": "getPhase",
+          "inputs": "TTree\nNaturel",
+          "outputs": "TPhase",
+          "calls": [],
+          "x": 1168.2313380891553,
+          "y": 221.31197632114427,
+          "hidden": false,
+          "notes": "Retourne la phase de croissance d'un arbre à un indice donné."
+        },
+        {
+          "id": "f19",
+          "name": "getNbPhases",
+          "inputs": "TTree",
+          "outputs": "Naturel",
+          "calls": [],
+          "x": 1161.5339123977083,
+          "y": 25.641941962290957,
+          "hidden": false,
+          "notes": "Retourne le nombre total de phases de croissance que compte un arbre."
+        }
+      ],
+      "w": 1572.5297514451943,
+      "h": 300.312
+    },
+    {
+      "id": "u22",
+      "name": "FileManager",
+      "role": "Handles file operations (load/save) for users and trees.",
+      "color": {
+        "bg": "#E1E4FA",
+        "border": "#4650B0"
+      },
+      "x": 1841.08,
+      "y": -422.10799999999995,
+      "tads": "TStringArray = Tableau[1..MAX_SPECIES] de Chaîne",
+      "functions": [
+        {
+          "id": "f23",
+          "name": "userExists",
+          "inputs": "Chaîne",
+          "outputs": "Booléen",
+          "calls": [],
+          "x": 10,
+          "y": 16,
+          "hidden": false,
+          "notes": "Vérifie si un profil utilisateur existe déjà sous ce nom d'utilisateur."
+        },
+        {
+          "id": "f24",
+          "name": "saveUser",
+          "inputs": "TUser",
+          "outputs": "",
+          "calls": [],
+          "x": 375.9027837524414,
+          "y": 14.658363442993162,
+          "hidden": false,
+          "notes": "Sauvegarde le profil de l'utilisateur sur le disque."
+        },
+        {
+          "id": "f25",
+          "name": "loadUser",
+          "inputs": "Chaîne",
+          "outputs": "TUser",
+          "calls": [],
+          "x": 690.3486386872725,
+          "y": 10.676537188526053,
+          "hidden": false,
+          "notes": "Charge depuis le disque le profil correspondant à un nom d'utilisateur."
+        },
+        {
+          "id": "f26",
+          "name": "treeExists",
+          "inputs": "Chaîne",
+          "outputs": "Booléen",
+          "calls": [],
+          "x": 97.67728418551917,
+          "y": 116.97326029866356,
+          "hidden": false,
+          "notes": "Vérifie si les données d'une espèce d'arbre existent sur le disque."
+        },
+        {
+          "id": "f28",
+          "name": "loadTree",
+          "inputs": "Chaîne",
+          "outputs": "TTree",
+          "calls": [],
+          "x": 490.7440074170474,
+          "y": 118.97011808335573,
+          "hidden": false,
+          "notes": "Charge depuis le disque les données d'une espèce d'arbre."
+        },
+        {
+          "id": "f81",
+          "name": "getAvailableSpecies",
+          "inputs": "",
+          "outputs": "TStringArray",
+          "calls": [],
+          "x": 72.72733532872098,
+          "y": 231.98011808335573,
+          "hidden": false,
+          "notes": "Retourne la liste des noms de toutes les espèces d'arbres disponibles."
+        },
+        {
+          "id": "f82",
+          "name": "getNbAvailableSpecies",
+          "inputs": "",
+          "outputs": "Naturel",
+          "calls": [],
+          "x": 539.9807197593366,
+          "y": 233.56911808335573,
+          "hidden": false,
+          "notes": "Retourne le nombre d'espèces d'arbres disponibles."
+        }
+      ],
+      "w": 1068.378183712855,
+      "h": 323.3684668777205
+    },
+    {
+      "id": "u29",
+      "name": "CycleData",
+      "role": "Stores and manages the current cycle (mode, phase, state, durations).",
+      "color": {
+        "bg": "#FAD9E2",
+        "border": "#B93B62"
+      },
+      "x": -2772.14,
+      "y": 334.25,
+      "tads": "TMode = (CUSTOM, POMODORO)\nTPhaseSession = (FOCUS, SHORT_BREAK, LONG_BREAK)\nTState = (NOT_STARTED, IN_PROGRESS, FINISHED)\n\nTCycle = structure\n  mode: TMode\n  focusDuration, shortBreakDuration, longBreakDuration,\n  nbSessionsBeforeLongBreak, currentSession: Naturel\n  currentPhase: TPhaseSession\n  state: TState\nfinstructure",
+      "functions": [
+        {
+          "id": "f51",
+          "name": "initialiseCycle",
+          "inputs": "TMode\nNaturel*4",
+          "outputs": "TCycle",
+          "calls": [],
+          "x": 16,
+          "y": 16,
+          "hidden": false,
+          "notes": "Construit un nouveau cycle avec son mode et ses durées, prêt à être démarré (état NOT_STARTED, phase FOCUS)."
+        },
+        {
+          "id": "f52",
+          "name": "getMode",
+          "inputs": "TCycle",
+          "outputs": "TMode",
+          "calls": [],
+          "x": 482.1032793835493,
+          "y": 16.10274358032266,
+          "hidden": false,
+          "notes": "Retourne le mode du cycle (Personnalisé ou Pomodoro)."
+        },
+        {
+          "id": "f58",
+          "name": "getCurrentSession",
+          "inputs": "TCycle",
+          "outputs": "Naturel",
+          "calls": [],
+          "x": 638.4090855956979,
+          "y": 155.8462085595698,
+          "hidden": false,
+          "notes": "Retourne le nombre de sessions déjà menées à leur terme dans le cycle en cours."
+        },
+        {
+          "id": "f59",
+          "name": "getCurrentPhase",
+          "inputs": "TCycle",
+          "outputs": "TPhaseSession",
+          "calls": [],
+          "x": 149.35133695311657,
+          "y": 158.56073930053776,
+          "hidden": false,
+          "notes": "Retourne la phase actuelle du cycle (FOCUS, pause courte ou pause longue)."
+        },
+        {
+          "id": "f60",
+          "name": "getState",
+          "inputs": "TCycle",
+          "outputs": "TState",
+          "calls": [],
+          "x": 869.7099050622586,
+          "y": 15.279465020752877,
+          "hidden": false,
+          "notes": "Retourne l'état actuel du cycle (non démarré, en cours, ou terminé)."
+        },
+        {
+          "id": "f61",
+          "name": "startCycle",
+          "inputs": "TCycle",
+          "outputs": "TCycle",
+          "calls": [],
+          "x": 1254.5889385180642,
+          "y": 10.091429958494247,
+          "hidden": false,
+          "notes": "Démarre le cycle : fait passer son état à IN_PROGRESS."
+        },
+        {
+          "id": "f62",
+          "name": "nextPhase",
+          "inputs": "TCycle",
+          "outputs": "TCycle",
+          "calls": [],
+          "x": 188.54912839354677,
+          "y": 296.2620521398925,
+          "hidden": false,
+          "notes": "Fait avancer le cycle vers sa phase suivante (FOCUS vers pause, ou pause vers FOCUS) et incrémente le compteur de sessions quand une session FOCUS vient de se terminer."
+        },
+        {
+          "id": "f63",
+          "name": "finishCycle",
+          "inputs": "TCycle",
+          "outputs": "TCycle",
+          "calls": [],
+          "x": 591.0408676940846,
+          "y": 289.85526069946224,
+          "hidden": false,
+          "notes": "Termine le cycle proprement (l'utilisateur a choisi d'arrêter pendant une pause, sans arbre en cours)."
+        },
+        {
+          "id": "f64",
+          "name": "abandonCycle",
+          "inputs": "TCycle",
+          "outputs": "TCycle",
+          "calls": [],
+          "x": 1126.4237058447325,
+          "y": 151.4518062121486,
+          "hidden": false,
+          "notes": "Termine le cycle par abandon (l'utilisateur a choisi d'arrêter en pleine session FOCUS ; l'arbre en cours n'est pas crédité)."
+        },
+        {
+          "id": "f65",
+          "name": "getCurrentPhaseDuration",
+          "inputs": "TCycle",
+          "outputs": "Naturel",
+          "calls": [],
+          "x": 1020.0418529223663,
+          "y": 285.67615641967734,
+          "hidden": false,
+          "notes": "Retourne la durée de la phase actuelle du cycle (durée de concentration, de pause courte ou de pause longue selon le cas)."
+        }
+      ],
+      "w": 1647.555223331288,
+      "h": 390.24201085934965
+    },
+    {
+      "id": "u66",
+      "name": "TimerManager",
+      "role": "Tracks elapsed/remaining time within the current phase; pause/resume.",
+      "color": {
+        "bg": "#D6EBFB",
+        "border": "#1A72A6"
+      },
+      "x": -2690.34,
+      "y": -493.27,
+      "tads": "TTimer = structure\n  elapsedTime, duration: Naturel\n  isPaused: Booléen\nfinstructure",
+      "functions": [
+        {
+          "id": "f67",
+          "name": "initialiseTimer",
+          "inputs": "Naturel",
+          "outputs": "TTimer",
+          "calls": [],
+          "x": 16,
+          "y": 16,
+          "hidden": false,
+          "notes": "Construit un minuteur pour une durée donnée, prêt à démarrer."
+        },
+        {
+          "id": "f68",
+          "name": "getElapsedTime",
+          "inputs": "TTimer",
+          "outputs": "Naturel",
+          "calls": [],
+          "x": 525.3815349417124,
+          "y": 19.166382880860432,
+          "hidden": false,
+          "notes": "Retourne le temps déjà écoulé dans la phase en cours."
+        },
+        {
+          "id": "f69",
+          "name": "getDuration",
+          "inputs": "TTimer",
+          "outputs": "Naturel",
+          "calls": [],
+          "x": 984.186041932722,
+          "y": 16.913642880860433,
+          "hidden": false,
+          "notes": "Retourne la durée totale de la phase en cours."
+        },
+        {
+          "id": "f70",
+          "name": "getRemainingTime",
+          "inputs": "TTimer",
+          "outputs": "Naturel",
+          "calls": [],
+          "x": 30.450587733783927,
+          "y": 159.1663073532855,
+          "hidden": false,
+          "notes": "Retourne le temps restant avant la fin de la phase en cours."
+        },
+        {
+          "id": "f71",
+          "name": "isPaused",
+          "inputs": "TTimer",
+          "outputs": "Booléen",
+          "calls": [],
+          "x": 557.8945300887889,
+          "y": 158.72,
+          "hidden": false,
+          "notes": "Indique si le minuteur est actuellement en pause."
+        },
+        {
+          "id": "f72",
+          "name": "isFinished",
+          "inputs": "TTimer",
+          "outputs": "Booléen",
+          "calls": [],
+          "x": 1078.829,
+          "y": 334.274,
+          "hidden": false,
+          "notes": "Indique si la phase en cours est arrivée à son terme."
+        },
+        {
+          "id": "f73",
+          "name": "tick",
+          "inputs": "TTimer\nNaturel",
+          "outputs": "TTimer",
+          "calls": [],
+          "x": 6.96842,
+          "y": 318.58966847655824,
+          "hidden": false,
+          "notes": "Fait avancer le temps écoulé du minuteur (sans effet si celui-ci est en pause)."
+        },
+        {
+          "id": "f74",
+          "name": "pauseTimer",
+          "inputs": "TTimer",
+          "outputs": "TTimer",
+          "calls": [],
+          "x": 323.0741183993241,
+          "y": 312.7240215431123,
+          "hidden": false,
+          "notes": "Met le minuteur en pause."
+        },
+        {
+          "id": "f75",
+          "name": "resumeTimer",
+          "inputs": "TTimer",
+          "outputs": "TTimer",
+          "calls": [],
+          "x": 715.0445287596993,
+          "y": 315.89045437452495,
+          "hidden": false,
+          "notes": "Relance un minuteur mis en pause."
+        },
+        {
+          "id": "f76",
+          "name": "resetTimer",
+          "inputs": "TTimer\nNaturel",
+          "outputs": "TTimer",
+          "calls": [],
+          "x": 1070.43,
+          "y": 180.025,
+          "hidden": false,
+          "notes": "Réinitialise le minuteur pour une nouvelle phase, avec une nouvelle durée et un temps écoulé remis à zéro."
+        }
+      ],
+      "w": 1572.4630910253727,
+      "h": 457.274
+    },
+    {
+      "id": "u95",
+      "name": "IHM",
+      "role": "Manages the terminal interface (via crt); display + raw input.",
+      "color": {
+        "bg": "#EAE0F7",
+        "border": "#7548AE"
+      },
+      "x": -1077.76,
+      "y": -511.19000000000005,
+      "tads": "TStartChoice = (IMPORT, REGISTER, QUIT)\nTMainMenuChoice = (VIEW_PROFILE, VIEW_FOREST, LOGOUT, START, QUIT)\nTBrowseAction = (NONE, NEXT, PREVIOUS, SELECT)\nTSessionAction = (NONE, TOGGLE_PAUSE, QUIT_SESSION, CHANGE_TREE)",
+      "functions": [
+        {
+          "id": "f96",
+          "name": "displayStartMenu",
+          "inputs": "",
+          "outputs": "TStartChoice",
+          "calls": [],
+          "x": 40.04220702991598,
+          "y": 50.97033894009117,
+          "hidden": false,
+          "notes": "Affiche l'écran d'accueil et retourne le choix de l'utilisateur (se connecter, créer un profil, ou quitter)."
+        },
+        {
+          "id": "f97",
+          "name": "displayMainMenu",
+          "inputs": "",
+          "outputs": "TMainMenuChoice",
+          "calls": [],
+          "x": 529.6258291207055,
+          "y": 51.02970278946964,
+          "hidden": false,
+          "notes": "Affiche le menu principal et retourne le choix de l'utilisateur (démarrer une session, voir son profil, voir sa forêt, se déconnecter, ou quitter)."
+        },
+        {
+          "id": "f98",
+          "name": "displayLogin",
+          "inputs": "",
+          "outputs": "Chaîne",
+          "calls": [],
+          "x": 1041.0713861651357,
+          "y": 51.08911249637149,
+          "hidden": false,
+          "notes": "Affiche l'invite de connexion et retourne le nom d'utilisateur saisi."
+        },
+        {
+          "id": "f99",
+          "name": "displayRegister",
+          "inputs": "",
+          "outputs": "Chaîne*3",
+          "calls": [],
+          "x": 1441.03920657315,
+          "y": 53.33416513344383,
+          "hidden": false,
+          "notes": "Affiche le formulaire d'inscription et retourne le nom, le nom d'utilisateur et la description saisis."
+        },
+        {
+          "id": "f100",
+          "name": "displayProfile",
+          "inputs": "TUser",
+          "outputs": "",
+          "calls": [
+            "f40",
+            "f42",
+            "f44",
+            "f94",
+            "f32",
+            "f33",
+            "f34",
+            "f78",
+            "f48",
+            "f46",
+            "f49",
+            "f37",
+            "f80",
+            "f36"
+          ],
+          "x": 1841.0119527354682,
+          "y": 53.39357062892742,
+          "hidden": false,
+          "notes": "Affiche la page de profil complète de l'utilisateur (identité, date d'inscription, statistiques, forêt)."
+        },
+        {
+          "id": "f112",
+          "name": "displayForestOverview",
+          "inputs": "TForest",
+          "outputs": "Naturel",
+          "calls": [
+            "f37",
+            "f80"
+          ],
+          "x": 2224.000244140625,
+          "y": 55.5999755859375,
+          "hidden": false,
+          "notes": "Affiche un aperçu miniature de chaque espèce de la forêt et retourne l'indice de celle choisie par l'utilisateur."
+        },
+        {
+          "id": "f113",
+          "name": "displayTreeFull",
+          "inputs": "TTree",
+          "outputs": "",
+          "calls": [
+            "f14",
+            "f16",
+            "f19",
+            "f17",
+            "f8",
+            "f10"
+          ],
+          "x": 12.800048828125,
+          "y": 231.199951171875,
+          "hidden": false,
+          "notes": "Affiche un arbre déjà cultivé dans son intégralité (phase mature)."
+        },
+        {
+          "id": "f114",
+          "name": "displayCycleModeMenu",
+          "inputs": "",
+          "outputs": "TMode",
+          "calls": [],
+          "x": 496,
+          "y": 230.7999267578125,
+          "hidden": false,
+          "notes": "Affiche le choix du mode de cycle et retourne le mode sélectionné (Personnalisé ou Pomodoro)."
+        },
+        {
+          "id": "f115",
+          "name": "displayCustomConfiguration",
+          "inputs": "",
+          "outputs": "Naturel*4",
+          "calls": [],
+          "x": 985.60009765625,
+          "y": 223.999755859375,
+          "hidden": false,
+          "notes": "Affiche le formulaire de configuration du mode Personnalisé et retourne les quatre durées saisies."
+        },
+        {
+          "id": "f116",
+          "name": "displayPomodoroConfiguration",
+          "inputs": "",
+          "outputs": "",
+          "calls": [],
+          "x": 1526.400146484375,
+          "y": 220.4000244140625,
+          "hidden": false,
+          "notes": "Affiche un écran de confirmation avec les réglages fixes du mode Pomodoro (aucune saisie nécessaire)."
+        },
+        {
+          "id": "f117",
+          "name": "renderTreePreview",
+          "inputs": "TTree\nNaturel*2",
+          "outputs": "",
+          "calls": [
+            "f14",
+            "f16",
+            "f19",
+            "f17",
+            "f8",
+            "f10"
+          ],
+          "x": 2000.000244140625,
+          "y": 216.800048828125,
+          "hidden": false,
+          "notes": "Affiche l'aperçu d'une espèce pendant la sélection d'un arbre (nom, description, rendu de la phase mature)."
+        },
+        {
+          "id": "f118",
+          "name": "pollBrowseInput",
+          "inputs": "",
+          "outputs": "TBrowseAction",
+          "calls": [],
+          "x": 38.400146484375,
+          "y": 411.5999755859375,
+          "hidden": false,
+          "notes": "Vérifie sans bloquer si l'utilisateur a appuyé sur une touche de navigation (suivant, précédent, sélectionner) pendant la sélection d'un arbre."
+        },
+        {
+          "id": "f119",
+          "name": "renderTreeArea",
+          "inputs": "TTree\nNaturel",
+          "outputs": "",
+          "calls": [
+            "f17",
+            "f8",
+            "f10"
+          ],
+          "x": 499.199951171875,
+          "y": 408,
+          "hidden": false,
+          "notes": "Redessine la zone de l'arbre à l'écran pour une phase de croissance donnée."
+        },
+        {
+          "id": "f120",
+          "name": "renderClockArea",
+          "inputs": "Naturel",
+          "outputs": "",
+          "calls": [],
+          "x": 950.39990234375,
+          "y": 407.5999755859375,
+          "hidden": false,
+          "notes": "Redessine la zone de l'horloge à l'écran avec le temps restant."
+        },
+        {
+          "id": "f121",
+          "name": "renderInstructionsArea",
+          "inputs": "TPhaseSession",
+          "outputs": "",
+          "calls": [],
+          "x": 1408,
+          "y": 403.9998779296875,
+          "hidden": false,
+          "notes": "Redessine la zone des instructions à l'écran selon la phase en cours (les actions disponibles changent entre FOCUS et pause)."
+        },
+        {
+          "id": "f122",
+          "name": "pollSessionInput",
+          "inputs": "",
+          "outputs": "TSessionAction",
+          "calls": [],
+          "x": 2044.800048828125,
+          "y": 403.5999755859375,
+          "hidden": false,
+          "notes": "Vérifie sans bloquer si l'utilisateur a appuyé sur une touche pendant une session (pause, quitter, changer d'arbre)."
+        },
+        {
+          "id": "f123",
+          "name": "displayCycleEnd",
+          "inputs": "TCycle\nBooléen",
+          "outputs": "",
+          "calls": [
+            "f58",
+            "f52"
+          ],
+          "x": 19.199951171875,
+          "y": 601.599853515625,
+          "hidden": false,
+          "notes": "Affiche le bilan de fin de cycle (réussite ou abandon, mode, nombre de sessions accomplies)."
+        },
+        {
+          "id": "f124",
+          "name": "displayMessage",
+          "inputs": "Chaîne",
+          "outputs": "",
+          "calls": [],
+          "x": 473.60009765625,
+          "y": 601.2003173828125,
+          "hidden": false,
+          "notes": "Affiche un message d'information à l'utilisateur."
+        },
+        {
+          "id": "f125",
+          "name": "displayError",
+          "inputs": "Chaîne",
+          "outputs": "",
+          "calls": [],
+          "x": 944,
+          "y": 600.800048828125,
+          "hidden": false,
+          "notes": "Affiche un message d'erreur à l'utilisateur."
+        },
+        {
+          "id": "f126",
+          "name": "askConfirmation",
+          "inputs": "Chaîne",
+          "outputs": "Booléen",
+          "calls": [],
+          "x": 1398.400146484375,
+          "y": 603.5999755859375,
+          "hidden": false,
+          "notes": "Demande une confirmation à l'utilisateur (oui/non) avant une action importante."
+        },
+        {
+          "id": "f127",
+          "name": "waitForKey",
+          "inputs": "",
+          "outputs": "",
+          "calls": [],
+          "x": 1964.800048828125,
+          "y": 596.8001708984375,
+          "hidden": false,
+          "notes": "Attend que l'utilisateur appuie sur une touche avant de continuer."
+        }
+      ],
+      "w": 2753,
+      "h": 720.4000244140625
+    }
+  ],
+  "arrowWidth": 0.5,
+  "textScale": 1.3
+}
